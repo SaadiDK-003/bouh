@@ -19,7 +19,8 @@ require_once 'includes/config.php';
   <!-- Hero Section -->
   <section id="hero-section">
 
-    <div class="content-container">
+    <div class="d-grid grid-col-2 gap-2 w-1280">
+      <div class="content-container">
 
       <!-- Text -->
       <div class="text-container">
@@ -47,6 +48,7 @@ require_once 'includes/config.php';
     </div>
     <img src="images/homePerson.png" width="800" height="600" alt="شاب مع مساعد ذكي - بوح للدعم النفسي"
       class="object-contain absolute inset-0 h-full w-full">
+    </div>
 
   </section>
 
@@ -91,6 +93,52 @@ require_once 'includes/config.php';
           </div>
           <p>بناءً على نتائج التشخيص الأولي، يمكن للمساعد الذكي توجيهك إلى المعالج المناسب وتحديد موعد معه مباشرة</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="psychological">
+    <div class="content-center-container">
+      <div class="icon green">
+        <img src="./svg/clipboard.svg" alt="clipboard">
+      </div>
+      <h2>التقييمات النفسية الذاتية</h2>
+      <p>اختبارات نفسية معتمدة سريرياً مبسطة ومترجمة للعربية، تساعدك على فهم مشاعرك وتوجهك نحو الخطوات المناسبة لرعاية صحتك النفسية</p>
+    </div>
+
+    <div class="d-grid grid-col-3 gap-2 my-2 w-1280">
+      <div class="item min-h-340">
+        <div class="icon blue">
+          <img src="./svg/clipboard-blue.svg" alt="clipboard">
+        </div>
+        <div class="content">
+          <h3>تقييم القلق (GAD-7)</h3>
+          <p>اختبار قصير يساعدك على تقييم أعراض الاكتئاب لديك وشدتها، مبني على مقياس PHQ-9 المعتمد عالمياً</p>
+          <span>7 أسئلة · 2 دقائق للإكمال</span>
+        </div>
+        <a href="#!" class="btn blue">ابدأ التقييم</a>
+      </div>
+      <div class="item min-h-340">
+        <div class="icon orange">
+          <img src="./svg/clipboard-orange.svg" alt="clipboard">
+        </div>
+        <div class="content">
+          <h3>تقييم القلق (GAD-7)</h3>
+          <p>اختبار قصير يساعدك على تقييم مستوى القلق لديك وتأثيره على حياتك، مبني على مقياس GAD-7 المعتمد سريرياً</p>
+          <span>7 أسئلة · 2 دقائق للإكمال</span>
+        </div>
+        <a href="#!" class="btn orange">ابدأ التقييم</a>
+      </div>
+      <div class="item min-h-340">
+        <div class="icon green">
+          <img src="./svg/clipboard.svg" alt="clipboard">
+        </div>
+        <div class="content">
+          <h3>تقييم الصحة النفسية العام</h3>
+          <p>تقييم شامل يساعدك على فهم حالتك النفسية العامة ويحدد المجالات التي قد تحتاج إلى اهتمام</p>
+          <span>15 سؤال · 5 دقائق للإكمال</span>
+        </div>
+        <a href="#!" class="btn green">ابدأ التقييم</a>
       </div>
     </div>
   </section>
