@@ -58,6 +58,41 @@ require_once 'includes/config.php';
       <h2>المساعد الذكي للتشخيص الأولي</h2>
       <p>تحدث مع المساعد الذكي للحصول على تقييم أولي لحالتك النفسية، يساعدك في فهم مشاعرك وتوجيهك نحو الخطوات المناسبة</p>
     </div>
+    <div class="grid-container d-grid grid-col-2 gap-2 w-1280 my-4">
+      <div class="item">
+        <div class="content-center-container">
+          <div class="icon red">
+            <img src="./svg/robo.svg" alt="robo">
+          </div>
+            <h2>جرب المساعد الذكي</h2>
+            <p>يمكنك التحدث مع المساعد الذكي للحصول على تقييم أولي لحالتك النفسية وفهم أفضل لمشاعرك</p>
+            <a href="#!" class="btn">ابدأ المحادثة الآن</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="box">
+          <div class="icon-text">
+            <h3>تشخيص أولي دقيق</h3>
+            <div class="icon"><img src="./svg/right-arrow.svg" alt="right-arrow"></div>
+          </div>
+          <p>يستخدم المساعد الذكي نماذج متقدمة من الذكاء الاصطناعي لتحليل أعراضك وتقديم تقييم أولي دقيق لحالتك النفسية</p>
+        </div>
+        <div class="box">
+          <div class="icon-text">
+            <h3>خصوصية تامة</h3>
+            <div class="icon"><img src="./svg/right-arrow.svg" alt="right-arrow"></div>
+          </div>
+          <p>جميع محادثاتك مع المساعد الذكي مشفرة ومحمية بالكامل، نضمن لك الخصوصية التامة وسرية معلوماتك الشخصية</p>
+        </div>
+        <div class="box">
+          <div class="icon-text">
+            <h3>تكامل مع خدمات العلاج</h3>
+            <div class="icon"><img src="./svg/right-arrow.svg" alt="right-arrow"></div>
+          </div>
+          <p>بناءً على نتائج التشخيص الأولي، يمكن للمساعد الذكي توجيهك إلى المعالج المناسب وتحديد موعد معه مباشرة</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <?php include 'includes/footer.php'; ?>

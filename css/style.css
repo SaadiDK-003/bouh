@@ -213,6 +213,30 @@ body {
 }
 
 /* 17-Oct-2025 */
+
+.w-1280 {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.grid-col-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.gap-2 {
+  gap: 20px;
+}
+
+.my-2 {
+  margin-block: 2rem;
+}
+.my-4 {
+  margin-block: 4rem;
+}
+
 .content-center-container {
   display: flex;
   align-items: center;
@@ -232,6 +256,14 @@ body {
     img {
       width: 20px;
     }
+  }
+  h2 {
+    font-size: 36px;
+    color: var(--color-green-2);
+  }
+  p {
+    font-size: 18px;
+    color: var(--color-green);
   }
 }
 
@@ -280,8 +312,87 @@ body {
 
 /* Section 2 */
 #smart-assistant {
-  background-color: #fbf9f2;
+  /* background-color: #fbf9f2; */
+  background: linear-gradient(to bottom, #fbf9f2, #f5f0e0);
   padding-block: 50px;
+  .grid-container {
+    .item {
+      &:last-child {
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+        gap: 30px;
+        .box {
+          background-color: #fff;
+          padding: 20px 30px;
+          border-radius: 20px;
+          .icon-text {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            .icon {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              background-color: #f9e6e2;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              img {
+                width: 20px;
+              }
+            }
+          }
+          h3 {
+            font-size: 20px;
+          }
+          p {
+            font-size: 16px;
+            padding-left: 30px;
+            color: var(--color-green);
+          }
+        }
+      }
+      &:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        .content-center-container {
+          border-radius: 10px;
+          padding: 20px 30px;
+          background-color: #fff;
+          .icon {
+            width: initial;
+            height: initial;
+            background-color: transparent;
+            img {
+              width: 50px;
+            }
+          }
+          h2 {
+            font-size: 24px;
+          }
+          p {
+            font-size: 16px;
+          }
+          a {
+            &.btn {
+              display: block;
+              max-width: max-content;
+              padding: 10px 24px;
+              color: #fff;
+              margin-top: 20px;
+              background-color: var(--secondary-color);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .hero {
