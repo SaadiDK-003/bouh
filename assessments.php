@@ -13,7 +13,7 @@ require_once 'includes/config.php';
 <body>
 <?php include 'includes/header.php'; ?>
 <main class="container">
-    <section class="assessments-landing">
+    <section id="assessments-landing">
         <h1>الاختبارات (مقاس ليكرت)</h1>
         <p>يمكن للجميع الاطلاع على وصف الاختبارات، ولكن يجب تسجيل الدخول كـ"مستخدم" لأداء الاختبارات وتخزين النتائج في حسابك.</p>
 

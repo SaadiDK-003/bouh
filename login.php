@@ -58,17 +58,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>تسجيل الدخول - بوح  </title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body {
-            font-family: "Cairo", "Tahoma", sans-serif;
-            direction: rtl;
-            text-align: right;
-        }
         .auth-card h2 {
             text-align: center;
         }
     </style>
 </head>
-<body style="background-color: #faf8f0;">
+<body>
     <?php include 'includes/header.php'; ?>
     
     <main class="container">
