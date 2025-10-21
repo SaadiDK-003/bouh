@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label for="treatment_price">سعر العلاج *</label>
+                        <label for="treatment_price">سعر العلاج <img src="./images/Saudi_Riyal_Symbol-1.png" alt="riyal_symbol">*</label>
                         <input type="number" id="treatment_price" name="treatment_price" required min="0" step="0.01"
                             placeholder="أدخل رسوم الاستشارة">
                     </div>

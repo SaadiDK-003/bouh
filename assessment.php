@@ -195,8 +195,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </li>
                         <?php endforeach; ?>
                     </ol>
-                    <button type="submit" class="btn btn-primary">إرسال</button>
-                    <a href="./assessments.php" class="btn-back">عُد</a>
+                    <div class="buttons-wrapper">
+                        <a href="./assessments.php" class="btn-back">عُد</a>
+                        <button type="submit" class="btn btn-primary">إرسال</button>
+                    </div>
                 </form>
             <?php endif; ?>
         </div>

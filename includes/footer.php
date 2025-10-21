@@ -74,4 +74,19 @@
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
     }));
+
+    function goToStep(step) {
+        // Update session step
+        <?php $_SESSION['booking']['step'] = $current_step; ?>
+        window.location.href = 'booking.php';
+    }
+
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateInput = document.getElementById('appointment_date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+        }
+    });
 </script>
