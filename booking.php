@@ -158,6 +158,9 @@ if (isset($_SESSION['booking']['doctor_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment - Bouh System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -166,7 +169,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
 
     <main class="container">
         <div class="booking-container">
-            <h1>Book Appointment</h1>
+            <h1>حجز جلسة مع معالج نفسي</h1>
 
             <?php if (isset($_GET['success'])): ?>
                 <div class="alert alert-success">
@@ -179,19 +182,19 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                 <div class="progress-steps">
                     <div class="step <?php echo $current_step >= 1 ? 'active' : ''; ?>">
                         <div class="step-number">1</div>
-                        <div class="step-title">Choose Doctor</div>
+                        <div class="step-title">اختيار المعالج</div>
                     </div>
                     <div class="step <?php echo $current_step >= 2 ? 'active' : ''; ?>">
                         <div class="step-number">2</div>
-                        <div class="step-title">Schedule</div>
+                        <div class="step-title">جدول</div>
                     </div>
                     <div class="step <?php echo $current_step >= 3 ? 'active' : ''; ?>">
                         <div class="step-number">3</div>
-                        <div class="step-title">Patient Info</div>
+                        <div class="step-title">معلومات المريض</div>
                     </div>
                     <div class="step <?php echo $current_step >= 4 ? 'active' : ''; ?>">
                         <div class="step-number">4</div>
-                        <div class="step-title">Review</div>
+                        <div class="step-title">مراجعة</div>
                     </div>
                 </div>
 
@@ -202,55 +205,58 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                 <!-- Step 1: Choose Doctor -->
                 <?php if ($current_step == 1): ?>
                     <div class="booking-step">
-                        <h2>Step 1: Choose a Doctor</h2>
+                        <h2>الخطوة  1: اختر الطبيب</h2>
                         <form method="POST" action="booking.php" class="doctor-selection">
                             <input type="hidden" name="step" value="1">
                             <div class="doctors-grid">
                                 <?php foreach ($doctors as $doctor): ?>
-                                    <div class="doctor-card">
-                                        <div class="doctor-info">
-                                            <?php if ($doctor['photo']): ?>
-                                                <img src="uploads/<?php echo htmlspecialchars($doctor['photo']); ?>"
-                                                    alt="<?php echo htmlspecialchars($doctor['name']); ?>" class="doctor-photo">
-                                            <?php else: ?>
-                                                <div class="doctor-avatar">
-                                                    <i class="fas fa-user-md"></i>
-                                                </div>
-                                            <?php endif; ?>
-                                            <div class="doctor-details">
-                                                <h3><?php echo htmlspecialchars($doctor['name']); ?></h3>
-                                                <p class="specialty"><?php echo htmlspecialchars($doctor['specialty']); ?></p>
-                                                <p class="experience"><?php echo (int) $doctor['years_of_experience']; ?> years
-                                                    experience</p>
-                                                <p class="price">$<?php echo number_format($doctor['treatment_price'], 2); ?></p>
-                                                <?php $r = $ratings_map[$doctor['id']] ?? null; ?>
-                                                <p class="rating">Rating: <?php echo $r ? $r['avg'] : 'N/A'; ?>
-                                                    (<?php echo $r ? $r['count'] : 0; ?> reviews)</p>
-                                                <?php if (!empty($comments_map[$doctor['id']])): ?>
-                                                    <div class="recent-comments">
-                                                        <strong>All comments:</strong>
-                                                        <ul>
-                                                            <?php foreach ($comments_map[$doctor['id']] as $cm): ?>
-                                                                <li>
-                                                                    <span>(<?php echo (int) $cm['rating']; ?>/5)</span>
-                                                                    <?php echo htmlspecialchars($cm['comment']); ?>
-                                                                </li>
-                                                            <?php endforeach; ?>
-                                                        </ul>
+                                    <label for="doctor_<?php echo (int) $doctor['id']; ?>">
+                                        <div class="doctor-card">
+                                            <div class="doctor-info">
+                                                <?php if ($doctor['photo']): ?>
+                                                    <img src="uploads/<?php echo htmlspecialchars($doctor['photo']); ?>"
+                                                        alt="<?php echo htmlspecialchars($doctor['name']); ?>" class="doctor-photo">
+                                                <?php else: ?>
+                                                    <div class="doctor-avatar">
+                                                        <i class="fas fa-user-md"></i>
                                                     </div>
                                                 <?php endif; ?>
+                                                <div class="doctor-details">
+                                                    <h3><?php echo htmlspecialchars($doctor['name']); ?></h3>
+                                                    <p class="specialty"><?php echo htmlspecialchars($doctor['specialty']); ?></p>
+                                                    <p class="experience"><?php echo (int) $doctor['years_of_experience']; ?> years
+                                                        experience</p>
+                                                    <p class="price">
+                                                        $<?php echo number_format(num: $doctor['treatment_price'], decimals: 2); ?>
+                                                    </p>
+                                                    <?php $r = $ratings_map[$doctor['id']] ?? null; ?>
+                                                    <p class="rating">Rating: <?php echo $r ? $r['avg'] : 'N/A'; ?>
+                                                        (<?php echo $r ? $r['count'] : 0; ?> reviews)</p>
+                                                    <?php if (!empty($comments_map[$doctor['id']])): ?>
+                                                        <div class="recent-comments d-none">
+                                                            <strong>All comments:</strong>
+                                                            <ul>
+                                                                <?php foreach ($comments_map[$doctor['id']] as $cm): ?>
+                                                                    <li>
+                                                                        <span>(<?php echo (int) $cm['rating']; ?>/5)</span>
+                                                                        <?php echo htmlspecialchars($cm['comment']); ?>
+                                                                    </li>
+                                                                <?php endforeach; ?>
+                                                            </ul>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <div class="doctor-selection">
+                                                <input type="radio" name="doctor_id" value="<?php echo (int) $doctor['id']; ?>"
+                                                    id="doctor_<?php echo (int) $doctor['id']; ?>" required>
                                             </div>
                                         </div>
-                                        <div class="doctor-selection">
-                                            <input type="radio" name="doctor_id" value="<?php echo (int) $doctor['id']; ?>"
-                                                id="doctor_<?php echo (int) $doctor['id']; ?>" required>
-                                            <label for="doctor_<?php echo (int) $doctor['id']; ?>">Select</label>
-                                        </div>
-                                    </div>
+                                    </label>
                                 <?php endforeach; ?>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Next Step</button>
+                                <button type="submit" class="btn btn-primary">الخطوة التالية</button>
                             </div>
                         </form>
                     </div>
@@ -259,21 +265,21 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                 <!-- Step 2: Schedule Appointment -->
                 <?php if ($current_step == 2 && $selected_doctor): ?>
                     <div class="booking-step">
-                        <h2>Step 2: Schedule Appointment</h2>
+                        <h2>الخطوة  2: تحديد موعد</h2>
                         <div class="selected-doctor">
-                            <h3>Selected Doctor: <?php echo htmlspecialchars($selected_doctor['name']); ?></h3>
+                            <h3>دكتور مختار: <?php echo htmlspecialchars($selected_doctor['name']); ?></h3>
                             <p><?php echo htmlspecialchars($selected_doctor['specialty']); ?> -
                                 $<?php echo number_format($selected_doctor['treatment_price'], 2); ?></p>
                         </div>
                         <form method="POST" action="booking.php" class="schedule-form">
                             <input type="hidden" name="step" value="2">
                             <div class="form-group">
-                                <label for="appointment_date">Appointment Date</label>
+                                <label for="appointment_date">تاريخ التعيين</label>
                                 <input type="date" id="appointment_date" name="appointment_date" required
                                     min="<?php echo date('Y-m-d'); ?>">
                             </div>
                             <div class="form-group">
-                                <label for="appointment_time">Appointment Time</label>
+                                <label for="appointment_time">وقت التعيين</label>
                                 <select id="appointment_time" name="appointment_time" required>
                                     <option value="">Select time</option>
                                     <option value="09:00">9:00 AM</option>
@@ -288,8 +294,8 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                                 </select>
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Previous</button>
-                                <button type="submit" class="btn btn-primary">Next Step</button>
+                                <button type="button" class="btn btn-secondary" onclick="goToStep(1)">سابق</button>
+                                <button type="submit" class="btn btn-primary">الخطوة التالية</button>
                             </div>
                         </form>
                     </div>
@@ -298,7 +304,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                 <!-- Step 3: Patient Information -->
                 <?php if ($current_step == 3 && $selected_doctor): ?>
                     <div class="booking-step">
-                        <h2>Step 3: Patient Information</h2>
+                        <h2>الخطوة 3: معلومات المريض</h2>
                         <form method="POST" action="booking.php" class="patient-form">
                             <input type="hidden" name="step" value="3">
                             <div class="form-group">
@@ -328,7 +334,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             </div>
                             <div class="form-actions">
                                 <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Previous</button>
-                                <button type="submit" class="btn btn-primary">Next Step</button>
+                                <button type="submit" class="btn btn-primary">الخطوة التالية</button>
                             </div>
                         </form>
                     </div>
