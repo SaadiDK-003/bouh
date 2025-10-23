@@ -1,10 +1,11 @@
 * Booking Page
 https://v0-booh-landing-page.vercel.app/book-therapist
 http://localhost/bouh/booking.php
-- Translation + Design
+- Translation + Design (Done)
 
 * Dashboard
 https://v0-booh-landing-page.vercel.app/therapist-dashboard
 http://localhost/bouh/userBookings.php
+(Done)
 
---- Linking the HomePage buttons.
+--- Linking the HomePage buttons. (Done)

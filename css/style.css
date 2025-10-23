@@ -997,7 +997,6 @@ section {
   color: rgb(166 56 41 / var(--tw-text-opacity, 1));
 }
 
-
 .patient-form {
   .form-group {
     label {
@@ -1034,6 +1033,9 @@ section {
   background: #efe;
   color: #3c3;
   border: 1px solid #cfc;
+  p {
+    margin-block: 10px;
+  }
 }
 
 /* Page Content */
@@ -1146,11 +1148,11 @@ section {
   border-color: #e74c3c;
 }
 
-.doctor-info {
+/* .doctor-info {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
+} */
 
 .doctor-photo {
   width: 60px;
@@ -1200,7 +1202,6 @@ section {
     border-color: #e74c3c;
     background: #ffe6e1;
   }
-
 }
 
 .doctor-selection label {
@@ -1239,14 +1240,21 @@ section {
 }
 
 .review-section {
-  background: #f8f9fa;
   padding: 1.5rem;
-  border-radius: 5px;
+  .review-form {
+    margin-top: 10px;
+    textarea {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      min-height: 50px;
+    }
+  }
 }
 
 .review-section h3 {
   color: #2c3e50;
-  margin-bottom: 1rem;
   border-bottom: 2px solid #e74c3c;
   padding-bottom: 0.5rem;
 }
@@ -1357,6 +1365,25 @@ section {
 
 .appointment-details {
   margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 2fr;
+
+  > div {
+    padding-inline: 20px;
+    &:not(:first-child) {
+      border-right: 1px solid #eee;
+    }
+  }
+
+  .treatment-notes {
+    display: flex;
+    justify-content: space-around;
+  }
+  .assessment-info {
+    ul {
+      padding-right: 30px;
+    }
+  }
 }
 
 .appointment-details h3 {
@@ -1372,10 +1399,30 @@ section {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  position: relative;
+  border-top: 1px solid #eee;
+  .buttons-wrapper {
+    display: grid;
+    align-items: baseline;
+    justify-items: center;
+    position: absolute;
+    min-height: 100px;
+    left: 0;
+    bottom: 0;
+  }
 }
 
 .status-form {
   display: inline;
+}
+
+.chat-wrapper {
+  .chat-input {
+    textarea {
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+  }
 }
 
 /* Footer Styles */

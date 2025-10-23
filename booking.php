@@ -173,9 +173,9 @@ if (isset($_SESSION['booking']['doctor_id'])) {
 
             <?php if (isset($_GET['success'])): ?>
                 <div class="alert alert-success">
-                    <h3>Booking Successful!</h3>
-                    <p>Your appointment has been booked successfully. You will receive a confirmation email shortly.</p>
-                    <a href="index.php" class="btn btn-primary">Go to Home</a>
+                    <h3>الحجز ناجح!</h3>
+                    <p>تم حجز موعدك بنجاح. ستصلك رسالة تأكيد قريبًا.</p>
+                    <a href="index.php" class="btn btn-primary">اذهب إلى الصفحة الرئيسية</a>
                 </div>
             <?php else: ?>
                 <!-- Progress Steps -->
@@ -281,7 +281,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             <div class="form-group">
                                 <label for="appointment_time">وقت التعيين</label>
                                 <select id="appointment_time" name="appointment_time" required>
-                                    <option value="">Select time</option>
+                                    <option value="">حدد الوقت</option>
                                     <option value="09:00">9:00 AM</option>
                                     <option value="10:00">10:00 AM</option>
                                     <option value="11:00">11:00 AM</option>
@@ -308,32 +308,32 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                         <form method="POST" action="booking.php" class="patient-form">
                             <input type="hidden" name="step" value="3">
                             <div class="form-group">
-                                <label for="patient_name">Full Name *</label>
+                                <label for="patient_name">الاسم الكامل *</label>
                                 <input type="text" id="patient_name" name="patient_name" required
                                     placeholder="Enter patient's full name">
                             </div>
                             <div class="form-group">
-                                <label for="patient_email">Email *</label>
+                                <label for="patient_email">بريد إلكتروني *</label>
                                 <input type="email" id="patient_email" name="patient_email" required
                                     placeholder="Enter email address">
                             </div>
                             <div class="form-group">
-                                <label for="patient_phone">Phone *</label>
+                                <label for="patient_phone">هاتف *</label>
                                 <input type="tel" id="patient_phone" name="patient_phone" required
                                     placeholder="Enter phone number">
                             </div>
                             <div class="form-group">
-                                <label for="cause_of_treatment">Cause of Treatment</label>
+                                <label for="cause_of_treatment">سبب العلاج</label>
                                 <textarea id="cause_of_treatment" name="cause_of_treatment" rows="3"
                                     placeholder="Describe the reason for the appointment..."></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="notes">Additional Notes</label>
+                                <label for="notes">ملاحظات إضافية</label>
                                 <textarea id="notes" name="notes" rows="3"
                                     placeholder="Any additional information..."></textarea>
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Previous</button>
+                                <button type="button" class="btn btn-secondary" onclick="goToStep(2)">سابق</button>
                                 <button type="submit" class="btn btn-primary">الخطوة التالية</button>
                             </div>
                         </form>
@@ -343,10 +343,10 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                 <!-- Step 4: Review and Complete -->
                 <?php if ($current_step == 4 && $selected_doctor): ?>
                     <div class="booking-step">
-                        <h2>Step 4: Review Booking</h2>
+                        <h2>الخطوة  4: مراجعة الحجز</h2>
                         <div class="booking-review">
                             <div class="review-section">
-                                <h3>Doctor Information</h3>
+                                <h3>معلومات الطبيب</h3>
                                 <div class="review-item">
                                     <strong>Name:</strong> <?php echo htmlspecialchars($selected_doctor['name']); ?>
                                 </div>
@@ -360,7 +360,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             </div>
 
                             <div class="review-section">
-                                <h3>Appointment Details</h3>
+                                <h3>تفاصيل الموعد</h3>
                                 <div class="review-item">
                                     <strong>Date:</strong>
                                     <?php echo date('F d, Y', strtotime($_SESSION['booking']['appointment_date'])); ?>
@@ -372,7 +372,7 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             </div>
 
                             <div class="review-section">
-                                <h3>Patient Information</h3>
+                                <h3>معلومات المريض</h3>
                                 <div class="review-item">
                                     <strong>Name:</strong> <?php echo htmlspecialchars($_SESSION['booking']['patient_name']); ?>
                                 </div>
@@ -401,8 +401,8 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                         <form method="POST" action="booking.php" class="booking-complete">
                             <input type="hidden" name="step" value="4">
                             <div class="form-actions">
-                                <button type="button" class="btn btn-secondary" onclick="goToStep(3)">Previous</button>
-                                <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                                <button type="button" class="btn btn-secondary" onclick="goToStep(3)">سابق</button>
+                                <button type="submit" class="btn btn-primary">تأكيد الحجز</button>
                             </div>
                         </form>
                     </div>
