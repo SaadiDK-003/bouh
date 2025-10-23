@@ -12,14 +12,14 @@
                     <li class="nav-item">
                         <a href="index.php" class="nav-link">الرئيسية</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-none">
                         <a href="doctors.php" class="nav-link">حجز جلسة</a>
                     </li>
                     <li class="nav-item">
                         <a href="assessments.php" class="nav-link">اكتشف نفسك</a>
                     </li>
                     <li class="nav-item">
-                        <a href="booking.php" class="nav-link">الحجوزات</a>
+                        <a href="booking.php" class="nav-link">حجز جلسة</a>
                     </li>
                     <li>
                         <a href="#app-features" class="nav-link">المميزات</a>
