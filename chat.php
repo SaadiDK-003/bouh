@@ -122,20 +122,20 @@ $messages = $msg_res->fetch_all(MYSQLI_ASSOC);
     <div class="chat-wrapper">
         <div class="chat-header">
             <div>
-                <div class="chat-title">Chat with <?php echo htmlspecialchars($counterpart_name); ?></div>
-                <div class="chat-sub">Appointment on <?php echo date('M d, Y', strtotime($appointment['appointment_date'])); ?> at <?php echo date('h:i A', strtotime($appointment['appointment_time'])); ?></div>
+                <div class="chat-title">الدردشة مع<?php echo htmlspecialchars($counterpart_name); ?></div>
+                <div class="chat-sub">موعد على<?php echo date('M d, Y', strtotime($appointment['appointment_date'])); ?> at <?php echo date('h:i A', strtotime($appointment['appointment_time'])); ?></div>
             </div>
             <div>
                 <?php if ($chat_active): ?>
-                    <span class="chat-status status-active">Active (<?php echo htmlspecialchars($appointment['status']); ?>)</span>
+                    <span class="chat-status status-active">نشيط (<?php echo htmlspecialchars($appointment['status']); ?>)</span>
                 <?php else: ?>
-                    <span class="chat-status status-closed">Closed (<?php echo htmlspecialchars($appointment['status']); ?>)</span>
+                    <span class="chat-status status-closed">مغلق (<?php echo htmlspecialchars($appointment['status']); ?>)</span>
                 <?php endif; ?>
             </div>
         </div>
         <div class="chat-body" id="chatBody">
             <?php if (empty($messages)): ?>
-                <p>No messages yet. Start the conversation.</p>
+                <p>لا توجد رسائل حتى الآن. ابدأ المحادثة.</p>
             <?php else: ?>
                 <?php foreach ($messages as $m): ?>
                     <?php $mine = ($m['sender_id'] == $user_id); ?>
@@ -149,11 +149,11 @@ $messages = $msg_res->fetch_all(MYSQLI_ASSOC);
         <div class="chat-input">
             <?php if ($chat_active): ?>
                 <form method="POST" action="chat.php?appointment_id=<?php echo $appointment_id; ?>" style="display:flex;gap:8px;width:100%">
-                    <textarea name="message" placeholder="Type your message..." required></textarea>
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <textarea name="message" placeholder="اكتب رسالتك..." required></textarea>
+                    <button type="submit" class="btn btn-primary">ارسال</button>
                 </form>
             <?php else: ?>
-                <div style="padding:8px;color:#666">Chat is closed for this appointment.</div>
+                <div style="padding:8px;color:#666">تم إغلاق هذا الموعد.</div>
             <?php endif; ?>
         </div>
     </div>

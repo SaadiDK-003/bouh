@@ -180,8 +180,9 @@ require_once 'includes/config.php';
           <img src="./svg/clipboard-blue.svg" class="w-40" alt="clipboard">
         </div>
         <div class="content">
-          <h3>تقييم القلق (GAD-7)</h3>
-          <p>اختبار قصير يساعدك على تقييم أعراض الاكتئاب لديك وشدتها، مبني على مقياس PHQ-9 المعتمد عالمياً</p>
+          <h3>مساعد ذكي</h3>
+          <p>امحادثات مدعومة بالذكاء الاصطناعي لتقديم الدعم والاستماع على مدار الساعة
+            </p>
         </div>
       </div>
       <div class="item">
@@ -189,8 +190,10 @@ require_once 'includes/config.php';
           <img src="./svg/clipboard-orange.svg" class="w-40" alt="clipboard">
         </div>
         <div class="content">
-          <h3>تقييم القلق (GAD-7)</h3>
-          <p>اختبار قصير يساعدك على تقييم مستوى القلق لديك وتأثيره على حياتك، مبني على مقياس GAD-7 المعتمد سريرياً</p>
+          <h3>تشخيص أولي</h3>
+          <p>
+            تقييم مبدئي لحالتك النفسية باستخدام الذكاء الاصطناعي المتقدم لتوجيهك نحو المسار العلاجي المناسب
+            </p>
         </div>
       </div>
       <div class="item">
@@ -198,8 +201,10 @@ require_once 'includes/config.php';
           <img src="./svg/heart-red.svg" class="w-40" alt="heart-red">
         </div>
         <div class="content">
-          <h3>تقييم الصحة النفسية العام</h3>
-          <p>تقييم شامل يساعدك على فهم حالتك النفسية العامة ويحدد المجالات التي قد تحتاج إلى اهتمام</p>
+          <h3>رعاية شخصية </h3>
+          <p>
+            خطط دعم مخصصة تناسب احتياجاتك الفردية ومسارك الشخصي
+          </p>
         </div>
       </div>
       <div class="item">
@@ -207,8 +212,9 @@ require_once 'includes/config.php';
           <img src="./svg/heart-red.svg" class="w-40" alt="heart-red">
         </div>
         <div class="content">
-          <h3>تقييم الصحة النفسية العام</h3>
-          <p>تقييم شامل يساعدك على فهم حالتك النفسية العامة ويحدد المجالات التي قد تحتاج إلى اهتمام</p>
+          <h3>خصوصية تامة</h3>
+          <p>حماية بيانات مشددة وضمان السرية التامة لجميع المحادثات والمعلومات 
+          </p>
         </div>
       </div>
       <div class="item">
@@ -216,8 +222,10 @@ require_once 'includes/config.php';
           <img src="./svg/heart-red.svg" class="w-40" alt="heart-red">
         </div>
         <div class="content">
-          <h3>تقييم الصحة النفسية العام</h3>
-          <p>تقييم شامل يساعدك على فهم حالتك النفسية العامة ويحدد المجالات التي قد تحتاج إلى اهتمام</p>
+          <h3>تمارين يومية</h3>
+          <p>
+            أنشطة وتمارين للتأمل والاسترخاء لمساعدتك في التعامل مع التوتر والقلق
+          </p>
         </div>
       </div>
       <div class="item">
@@ -225,8 +233,9 @@ require_once 'includes/config.php';
           <img src="./svg/heart-red.svg" class="w-40" alt="heart-red">
         </div>
         <div class="content">
-          <h3>تقييم الصحة النفسية العام</h3>
-          <p>تقييم شامل يساعدك على فهم حالتك النفسية العامة ويحدد المجالات التي قد تحتاج إلى اهتمام</p>
+          <h3>جلسات احترافية</h3>
+          <p>تسهولة حجز جلسات مع معالجين نفسيين معتمدين ومتخصصين
+          </p>
         </div>
       </div>
     </div>

@@ -59,7 +59,9 @@ body {
 .d-none {
   display: none !important;
 }
-
+.d-block {
+  display: block !important;
+}
 /* Header Styles */
 .header {
   background: #fbf9f2;
@@ -1366,7 +1368,7 @@ section {
 .appointment-details {
   margin-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1.5fr 2fr;
+  grid-template-columns: 1fr 1fr;
 
   > div {
     padding-inline: 20px;
@@ -1379,11 +1381,26 @@ section {
     display: flex;
     justify-content: space-around;
   }
-  .assessment-info {
-    ul {
-      padding-right: 30px;
+}
+.assessment-info {
+  ul {
+    padding-right: 30px;
+    li {
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
     }
   }
+  a {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+}
+
+select[name="rating"] {
+  min-width: 20px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
 }
 
 .appointment-details h3 {
@@ -1396,19 +1413,22 @@ section {
 }
 
 .appointment-actions {
-  display: flex;
+  /* display: flex; */
   gap: 1rem;
   flex-wrap: wrap;
   position: relative;
   border-top: 1px solid #eee;
   .buttons-wrapper {
-    display: grid;
-    align-items: baseline;
-    justify-items: center;
-    position: absolute;
-    min-height: 100px;
-    left: 0;
-    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &.doctor {
+    border-top: none;
+    margin-top: 20px;
+    .actions-btns {
+      margin-top: 10px;
+    }
   }
 }
 

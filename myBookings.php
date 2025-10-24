@@ -3,7 +3,7 @@ session_start();
 require_once 'includes/config.php';
 
 // Check if user is logged in and is a doctor
-if(!is_logged_in() || get_user_type() != 'doctor') {
+if (!is_logged_in() || get_user_type() != 'doctor') {
     redirect('login.php');
 }
 
@@ -16,20 +16,20 @@ $stmt->execute();
 $result = $stmt->get_result();
 $doctor = $result->fetch_assoc();
 
-if(!$doctor) {
+if (!$doctor) {
     redirect('index.php');
 }
 
 $doctor_id = $doctor['id'];
 
 // Handle appointment status updates
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['appointment_id']) && isset($_POST['status'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['appointment_id']) && isset($_POST['status'])) {
     $appointment_id = sanitize_input($_POST['appointment_id']);
     $status = sanitize_input($_POST['status']);
-    
+
     // Validate status
     $valid_statuses = ['pending', 'confirmed', 'cancelled', 'completed'];
-    if(in_array($status, $valid_statuses)) {
+    if (in_array($status, $valid_statuses)) {
         $sql = "UPDATE appointments SET status = ? WHERE id = ? AND doctor_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sii", $status, $appointment_id, $doctor_id);
@@ -53,35 +53,37 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Bookings - Bouh System</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <?php include 'includes/header.php'; ?>
-    
+
     <main class="container">
         <div class="my-bookings-container">
             <h1>جلساتي</h1>
-            
-            <?php if(empty($appointments)): ?>
+
+            <?php if (empty($appointments)): ?>
                 <div class="no-appointments">
-                    <p>You don't have any appointments yet.</p>
-                    <a href="index.php" class="btn btn-primary">Go to Home</a>
+                    <p>ليس لديك أي مواعيد حتى الآن.</p>
+                    <a href="index.php" class="btn btn-primary">اذهب إلى الصفحة الرئيسية</a>
                 </div>
             <?php else: ?>
                 <div class="appointments-filter">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="pending">Pending</button>
-                    <button class="filter-btn" data-filter="confirmed">Confirmed</button>
-                    <button class="filter-btn" data-filter="completed">Completed</button>
-                    <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+                    <button class="filter-btn active" data-filter="all">الكل</button>
+                    <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                    <button class="filter-btn" data-filter="confirmed">مؤكد</button>
+                    <button class="filter-btn" data-filter="completed">مكتمل</button>
+                    <button class="filter-btn" data-filter="cancelled">تم الإلغاء</button>
                 </div>
-                
+
                 <div class="appointments-grid">
-                    <?php foreach($appointments as $appointment): ?>
+                    <?php foreach ($appointments as $appointment): ?>
                         <div class="appointment-card" data-status="<?php echo $appointment['status']; ?>">
                             <div class="appointment-header">
                                 <div class="appointment-status status-<?php echo $appointment['status']; ?>">
@@ -92,30 +94,32 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
                                     at <?php echo date('h:i A', strtotime($appointment['appointment_time'])); ?>
                                 </div>
                             </div>
-                            
+
                             <div class="appointment-details">
                                 <div class="patient-info">
-                                    <h3>Patient Information</h3>
-                                    <p><strong>Name:</strong> <?php echo htmlspecialchars($appointment['patient_name']); ?></p>
-                                    <p><strong>Email:</strong> <?php echo htmlspecialchars($appointment['patient_email']); ?></p>
-                                    <p><strong>Phone:</strong> <?php echo htmlspecialchars($appointment['patient_phone']); ?></p>
+                                    <h3>معلومات المريض:</h3>
+                                    <p><strong>الاسم:</strong> <?php echo htmlspecialchars($appointment['patient_name']); ?></p>
+                                    <p><strong>البريد الإلكتروني:</strong>
+                                        <?php echo htmlspecialchars($appointment['patient_email']); ?></p>
+                                    <p><strong>رقم الهاتف:</strong>
+                                        <?php echo htmlspecialchars($appointment['patient_phone']); ?></p>
                                 </div>
-                                
-                                <?php if(!empty($appointment['cause_of_treatment'])): ?>
+
+                                <?php if (!empty($appointment['cause_of_treatment'])): ?>
                                     <div class="treatment-info">
-                                        <h3>Cause of Treatment</h3>
+                                        <h3>سبب العلاج</h3>
                                         <p><?php echo nl2br(htmlspecialchars($appointment['cause_of_treatment'])); ?></p>
                                     </div>
                                 <?php endif; ?>
-                                
-                                <?php if(!empty($appointment['notes'])): ?>
+
+                                <?php if (!empty($appointment['notes'])): ?>
                                     <div class="notes-info">
-                                        <h3>Additional Notes</h3>
+                                        <h3>ملاحظات إضافية</h3>
                                         <p><?php echo nl2br(htmlspecialchars($appointment['notes'])); ?></p>
                                     </div>
                                 <?php endif; ?>
-                                
-                                <?php if(!empty($appointment['user_id'])): ?>
+
+                                <?php if (!empty($appointment['user_id'])): ?>
                                     <?php
                                     // Fetch latest assessment results for this user (patient)
                                     $assessments_map = [];
@@ -138,63 +142,77 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
                                         <ul>
                                             <li>
                                                 <strong>GHQ-15:</strong>
-                                                <?php if(isset($assessments_map['ghq15'])): $r=$assessments_map['ghq15']; ?>
-                                                    مجموع <?php echo (int)$r['total_score']; ?> (<?php echo htmlspecialchars($r['severity']); ?>) — <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                                <?php if (isset($assessments_map['ghq15'])):
+                                                    $r = $assessments_map['ghq15']; ?>
+                                                    مجموع <?php echo (int) $r['total_score']; ?>
+                                                    (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                                    <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
                                                 <?php else: ?>
                                                     لا توجد نتائج
                                                 <?php endif; ?>
                                             </li>
                                             <li>
                                                 <strong>PHQ-9:</strong>
-                                                <?php if(isset($assessments_map['phq9'])): $r=$assessments_map['phq9']; ?>
-                                                    مجموع <?php echo (int)$r['total_score']; ?> (<?php echo htmlspecialchars($r['severity']); ?>) — <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                                <?php if (isset($assessments_map['phq9'])):
+                                                    $r = $assessments_map['phq9']; ?>
+                                                    مجموع <?php echo (int) $r['total_score']; ?>
+                                                    (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                                    <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
                                                 <?php else: ?>
                                                     لا توجد نتائج
                                                 <?php endif; ?>
                                             </li>
                                             <li>
                                                 <strong>GAD-7:</strong>
-                                                <?php if(isset($assessments_map['gad7'])): $r=$assessments_map['gad7']; ?>
-                                                    مجموع <?php echo (int)$r['total_score']; ?> (<?php echo htmlspecialchars($r['severity']); ?>) — <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                                <?php if (isset($assessments_map['gad7'])):
+                                                    $r = $assessments_map['gad7']; ?>
+                                                    مجموع <?php echo (int) $r['total_score']; ?>
+                                                    (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                                    <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
                                                 <?php else: ?>
                                                     لا توجد نتائج
                                                 <?php endif; ?>
                                             </li>
                                         </ul>
                                         <p>
-                                            <a class="btn btn-secondary" href="doctor_patient_assessments.php?user_id=<?php echo (int)$appointment['user_id']; ?>">عرض جميع النتائج</a>
+                                            <a class="btn btn-secondary"
+                                                href="doctor_patient_assessments.php?user_id=<?php echo (int) $appointment['user_id']; ?>">عرض
+                                                جميع النتائج</a>
                                         </p>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            
-                            <div class="appointment-actions">
-                                <?php if(in_array($appointment['status'], ['pending','confirmed'])): ?>
-                                    <a href="chat.php?appointment_id=<?php echo $appointment['id']; ?>" class="btn btn-outline">Open Chat</a>
+
+                            <div class="appointment-actions doctor">
+                                <?php if (in_array($appointment['status'], ['pending', 'confirmed'])): ?>
+                                    <a href="chat.php?appointment_id=<?php echo $appointment['id']; ?>" class="btn btn-outline">
+                                        افتح الدردشة</a>
                                 <?php endif; ?>
-                                <?php if($appointment['status'] == 'pending'): ?>
-                                    <form method="POST" action="myBookings.php" class="status-form">
-                                        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                        <input type="hidden" name="status" value="confirmed">
-                                        <button type="submit" class="btn btn-success">Confirm</button>
-                                    </form>
-                                    <form method="POST" action="myBookings.php" class="status-form">
-                                        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                        <input type="hidden" name="status" value="cancelled">
-                                        <button type="submit" class="btn btn-danger">Cancel</button>
-                                    </form>
-                                <?php elseif($appointment['status'] == 'confirmed'): ?>
-                                    <form method="POST" action="myBookings.php" class="status-form">
-                                        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                        <input type="hidden" name="status" value="completed">
-                                        <button type="submit" class="btn btn-primary">Mark as Completed</button>
-                                    </form>
-                                    <form method="POST" action="myBookings.php" class="status-form">
-                                        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                        <input type="hidden" name="status" value="cancelled">
-                                        <button type="submit" class="btn btn-danger">Cancel</button>
-                                    </form>
-                                <?php endif; ?>
+                                <div class="actions-btns">
+                                    <?php if ($appointment['status'] == 'pending'): ?>
+                                        <form method="POST" action="myBookings.php" class="status-form">
+                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                            <input type="hidden" name="status" value="confirmed">
+                                            <button type="submit" class="btn btn-success">تأكيد</button>
+                                        </form>
+                                        <form method="POST" action="myBookings.php" class="status-form">
+                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                            <input type="hidden" name="status" value="cancelled">
+                                            <button type="submit" class="btn btn-danger">الغاء</button>
+                                        </form>
+                                    <?php elseif ($appointment['status'] == 'confirmed'): ?>
+                                        <form method="POST" action="myBookings.php" class="status-form">
+                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                            <input type="hidden" name="status" value="completed">
+                                            <button type="submit" class="btn btn-primary">وضع علامة مكتمل</button>
+                                        </form>
+                                        <form method="POST" action="myBookings.php" class="status-form">
+                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                            <input type="hidden" name="status" value="cancelled">
+                                            <button type="submit" class="btn btn-danger">الغاء</button>
+                                        </form>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -204,24 +222,24 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
     </main>
 
     <?php include 'includes/footer.php'; ?>
-    
+
     <script>
         // Filter functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const appointmentCards = document.querySelectorAll('.appointment-card');
-            
+
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Remove active class from all buttons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     // Add active class to clicked button
                     this.classList.add('active');
-                    
+
                     const filter = this.getAttribute('data-filter');
-                    
+
                     appointmentCards.forEach(card => {
-                        if(filter === 'all' || card.getAttribute('data-status') === filter) {
+                        if (filter === 'all' || card.getAttribute('data-status') === filter) {
                             card.style.display = 'block';
                         } else {
                             card.style.display = 'none';
@@ -232,4 +250,5 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
         });
     </script>
 </body>
+
 </html>

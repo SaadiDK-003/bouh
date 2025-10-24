@@ -111,19 +111,22 @@ if (!empty($appointments)) {
                 </div>
             <?php else: ?>
                 <div class="appointments-filter">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="pending">Pending</button>
-                    <button class="filter-btn" data-filter="confirmed">Confirmed</button>
-                    <button class="filter-btn" data-filter="completed">Completed</button>
-                    <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+                    <button class="filter-btn active" data-filter="all">الكل</button>
+                    <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                    <button class="filter-btn" data-filter="confirmed">مؤكد</button>
+                    <button class="filter-btn" data-filter="completed">مكتمل</button>
+                    <button class="filter-btn" data-filter="cancelled">تم الإلغاء</button>
                 </div>
 
                 <div class="appointments-grid">
-                    <?php foreach ($appointments as $appointment): ?>
+                    <?php foreach ($appointments as $appointment):
+                        $apt_status = $appointment['status'];
+                        ?>
                         <div class="appointment-card" data-status="<?php echo $appointment['status']; ?>">
                             <div class="appointment-header">
                                 <div class="appointment-status status-<?php echo $appointment['status']; ?>">
-                                    <?php echo ucfirst($appointment['status']); ?>
+                                    <?php if ($apt_status == 'pending'): ?>
+                                        قيد الانتظار <?php endif; ?>
                                 </div>
                                 <div class="appointment-date">
                                     <?php echo date('M d, Y', strtotime($appointment['appointment_date'])); ?>
@@ -169,68 +172,54 @@ if (!empty($appointments)) {
                                     }
                                 }
                                 ?>
-                                <div class="assessment-info">
-                                    <h3>نتائج الاختبارات</h3>
-                                    <ul>
-                                        <li>
-                                            <strong>GHQ-15:</strong>
-                                            <?php if (isset($assessments_map['ghq15'])):
-                                                $r = $assessments_map['ghq15']; ?>
-                                                مجموع <?php echo (int) $r['total_score']; ?>
-                                                (<?php echo htmlspecialchars($r['severity']); ?>) —
-                                                <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
-                                            <?php else: ?>
-                                                لا توجد نتائج
-                                            <?php endif; ?>
-                                            <a class="btn btn-outline" style="margin-right:8px;"
-                                                href="assessment.php?type=ghq15">أداء GHQ-15</a>
-                                        </li>
-                                        <li>
-                                            <strong>PHQ-9:</strong>
-                                            <?php if (isset($assessments_map['phq9'])):
-                                                $r = $assessments_map['phq9']; ?>
-                                                مجموع <?php echo (int) $r['total_score']; ?>
-                                                (<?php echo htmlspecialchars($r['severity']); ?>) —
-                                                <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
-                                            <?php else: ?>
-                                                لا توجد نتائج
-                                            <?php endif; ?>
-                                            <a class="btn btn-outline" style="margin-right:8px;"
-                                                href="assessment.php?type=phq9">أداء PHQ-9</a>
-                                        </li>
-                                        <li>
-                                            <strong>GAD-7:</strong>
-                                            <?php if (isset($assessments_map['gad7'])):
-                                                $r = $assessments_map['gad7']; ?>
-                                                مجموع <?php echo (int) $r['total_score']; ?>
-                                                (<?php echo htmlspecialchars($r['severity']); ?>) —
-                                                <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
-                                            <?php else: ?>
-                                                لا توجد نتائج
-                                            <?php endif; ?>
-                                            <a class="btn btn-outline" style="margin-right:8px;"
-                                                href="assessment.php?type=gad7">أداء GAD-7</a>
-                                        </li>
-                                    </ul>
-                                    <p><a class="btn btn-secondary" href="assessments.php">تعرف على الاختبارات</a></p>
-                                </div>
+                            </div>
+
+                            <div class="assessment-info">
+                                <h3>نتائج الاختبارات</h3>
+                                <ul>
+                                    <li>
+                                        <strong>GHQ-15:</strong>
+                                        <?php if (isset($assessments_map['ghq15'])):
+                                            $r = $assessments_map['ghq15']; ?>
+                                            مجموع <?php echo (int) $r['total_score']; ?>
+                                            (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                            <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                        <?php else: ?>
+                                            لا توجد نتائج
+                                        <?php endif; ?>
+                                        <a class="btn btn-outline" style="margin-right:8px;"
+                                            href="assessment.php?type=ghq15">أداء GHQ-15</a>
+                                    </li>
+                                    <li>
+                                        <strong>PHQ-9:</strong>
+                                        <?php if (isset($assessments_map['phq9'])):
+                                            $r = $assessments_map['phq9']; ?>
+                                            مجموع <?php echo (int) $r['total_score']; ?>
+                                            (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                            <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                        <?php else: ?>
+                                            لا توجد نتائج
+                                        <?php endif; ?>
+                                        <a class="btn btn-outline" style="margin-right:8px;"
+                                            href="assessment.php?type=phq9">أداء PHQ-9</a>
+                                    </li>
+                                    <li>
+                                        <strong>GAD-7:</strong>
+                                        <?php if (isset($assessments_map['gad7'])):
+                                            $r = $assessments_map['gad7']; ?>
+                                            مجموع <?php echo (int) $r['total_score']; ?>
+                                            (<?php echo htmlspecialchars($r['severity']); ?>) —
+                                            <?php echo htmlspecialchars(date('Y-m-d', strtotime($r['created_at']))); ?>
+                                        <?php else: ?>
+                                            لا توجد نتائج
+                                        <?php endif; ?>
+                                        <a class="btn btn-outline" style="margin-right:8px;"
+                                            href="assessment.php?type=gad7">أداء GAD-7</a>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-secondary" href="assessments.php">تعرف على الاختبارات</a>
                             </div>
                             <div class="appointment-actions">
-                                <div class="buttons-wrapper">
-                                    <?php if (in_array($appointment['status'], ['pending', 'confirmed'])): ?>
-                                        <a href="chat.php?appointment_id=<?php echo $appointment['id']; ?>"
-                                            class="btn btn-outline">افتح الدردشة</a>
-                                    <?php endif; ?>
-
-                                    <?php if (in_array($appointment['status'], ['pending', 'confirmed'])): ?>
-                                        <form method="POST" action="userBookings.php" class="status-form"
-                                            onsubmit="return confirm('Cancel this appointment?');">
-                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                            <input type="hidden" name="action" value="cancel">
-                                            <button type="submit" class="btn btn-danger">إلغاء الموعد</button>
-                                        </form>
-                                    <?php endif; ?>
-                                </div>
                                 <div class="review-section">
                                     <h3>تقييمك للطبيب</h3>
                                     <?php $existing = $reviews_by_appt[$appointment['id']] ?? null; ?>
@@ -241,12 +230,13 @@ if (!empty($appointments)) {
                                             <input type="hidden" name="action" value="review">
                                             <label>التقييم (0-5):
                                                 <select name="rating" required>
+                                                    <option value="" selected hidden>اختيار التقييم</option>
                                                     <?php for ($i = 0; $i <= 5; $i++): ?>
                                                         <option value="<?php echo $i; ?>" <?php echo ($existing && (int) $existing['rating'] === $i) ? 'selected' : ''; ?>><?php echo $i; ?></option>
                                                     <?php endfor; ?>
                                                 </select>
                                             </label>
-                                            <label>تعليق:
+                                            <label class="d-block">تعليق:
                                                 <textarea name="comment" rows="2"
                                                     placeholder="اكتب رأيك..."><?php echo $existing ? htmlspecialchars($existing['comment']) : ''; ?></textarea>
                                             </label>
@@ -261,6 +251,20 @@ if (!empty($appointments)) {
                                         <?php else: ?>
                                             <p>لا يوجد تقييم لهذا الحجز.</p>
                                         <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="buttons-wrapper">
+                                    <?php if (in_array($appointment['status'], ['pending', 'confirmed'])): ?>
+                                        <form method="POST" action="userBookings.php" class="status-form"
+                                            onsubmit="return confirm('Cancel this appointment?');">
+                                            <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                            <input type="hidden" name="action" value="cancel">
+                                            <button type="submit" class="btn btn-danger">إلغاء الموعد</button>
+                                        </form>
+                                    <?php endif; ?>
+                                    <?php if (in_array($appointment['status'], ['pending', 'confirmed'])): ?>
+                                        <a href="chat.php?appointment_id=<?php echo $appointment['id']; ?>"
+                                            class="btn btn-outline">افتح الدردشة</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

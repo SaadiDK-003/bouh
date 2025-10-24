@@ -310,27 +310,27 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             <div class="form-group">
                                 <label for="patient_name">الاسم الكامل *</label>
                                 <input type="text" id="patient_name" name="patient_name" required
-                                    placeholder="Enter patient's full name">
+                                    placeholder="أدخل الاسم الكامل للمريض">
                             </div>
                             <div class="form-group">
                                 <label for="patient_email">بريد إلكتروني *</label>
                                 <input type="email" id="patient_email" name="patient_email" required
-                                    placeholder="Enter email address">
+                                    placeholder="أدخل عنوان البريد الإلكتروني">
                             </div>
                             <div class="form-group">
                                 <label for="patient_phone">هاتف *</label>
                                 <input type="tel" id="patient_phone" name="patient_phone" required
-                                    placeholder="Enter phone number">
+                                    placeholder="أدخل رقم الهاتف">
                             </div>
                             <div class="form-group">
                                 <label for="cause_of_treatment">سبب العلاج</label>
                                 <textarea id="cause_of_treatment" name="cause_of_treatment" rows="3"
-                                    placeholder="Describe the reason for the appointment..."></textarea>
+                                    placeholder="وصف سبب حجز الموعد .."></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="notes">ملاحظات إضافية</label>
                                 <textarea id="notes" name="notes" rows="3"
-                                    placeholder="Any additional information..."></textarea>
+                                    placeholder="أي معلومات إضافية..."></textarea>
                             </div>
                             <div class="form-actions">
                                 <button type="button" class="btn btn-secondary" onclick="goToStep(2)">سابق</button>
@@ -348,13 +348,13 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             <div class="review-section">
                                 <h3>معلومات الطبيب</h3>
                                 <div class="review-item">
-                                    <strong>Name:</strong> <?php echo htmlspecialchars($selected_doctor['name']); ?>
+                                    <strong>الاسم:</strong> <?php echo htmlspecialchars($selected_doctor['name']); ?>
                                 </div>
                                 <div class="review-item">
-                                    <strong>Specialty:</strong> <?php echo htmlspecialchars($selected_doctor['specialty']); ?>
+                                    <strong>التخصص:</strong> <?php echo htmlspecialchars($selected_doctor['specialty']); ?>
                                 </div>
                                 <div class="review-item">
-                                    <strong>Consultation Fee:</strong>
+                                    <strong>رسوم الاستشارة:</strong>
                                     $<?php echo number_format($selected_doctor['treatment_price'], 2); ?>
                                 </div>
                             </div>
@@ -362,11 +362,11 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             <div class="review-section">
                                 <h3>تفاصيل الموعد</h3>
                                 <div class="review-item">
-                                    <strong>Date:</strong>
+                                    <strong>تاريخ:</strong>
                                     <?php echo date('F d, Y', strtotime($_SESSION['booking']['appointment_date'])); ?>
                                 </div>
                                 <div class="review-item">
-                                    <strong>Time:</strong>
+                                    <strong>الوقت:</strong>
                                     <?php echo date('h:i A', strtotime($_SESSION['booking']['appointment_time'])); ?>
                                 </div>
                             </div>
@@ -374,25 +374,25 @@ if (isset($_SESSION['booking']['doctor_id'])) {
                             <div class="review-section">
                                 <h3>معلومات المريض</h3>
                                 <div class="review-item">
-                                    <strong>Name:</strong> <?php echo htmlspecialchars($_SESSION['booking']['patient_name']); ?>
+                                    <strong>الاسم:</strong> <?php echo htmlspecialchars($_SESSION['booking']['patient_name']); ?>
                                 </div>
                                 <div class="review-item">
-                                    <strong>Email:</strong>
+                                    <strong>البريد الالكتروني:</strong>
                                     <?php echo htmlspecialchars($_SESSION['booking']['patient_email']); ?>
                                 </div>
                                 <div class="review-item">
-                                    <strong>Phone:</strong>
+                                    <strong>رقم الهاتف:</strong>
                                     <?php echo htmlspecialchars($_SESSION['booking']['patient_phone']); ?>
                                 </div>
                                 <?php if (!empty($_SESSION['booking']['cause_of_treatment'])): ?>
                                     <div class="review-item">
-                                        <strong>Cause of Treatment:</strong>
+                                        <strong>سبب العلاج:</strong>
                                         <?php echo htmlspecialchars($_SESSION['booking']['cause_of_treatment']); ?>
                                     </div>
                                 <?php endif; ?>
                                 <?php if (!empty($_SESSION['booking']['notes'])): ?>
                                     <div class="review-item">
-                                        <strong>Notes:</strong> <?php echo htmlspecialchars($_SESSION['booking']['notes']); ?>
+                                        <strong>ملاحظات:</strong> <?php echo htmlspecialchars($_SESSION['booking']['notes']); ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
