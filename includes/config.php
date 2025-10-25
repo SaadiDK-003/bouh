@@ -138,6 +138,14 @@ function upload_file($file, $target_dir, $allowed_types = ['jpg', 'jpeg', 'png',
     }
 }
 
+function delete_user($user_id) {
+    global $conn;
+    $sql = "DELETE FROM users WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    return $stmt->execute();
+}
+
 // Check session on every page load
 check_session();
 ?>

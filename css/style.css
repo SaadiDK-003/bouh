@@ -21,6 +21,10 @@ img {
   height: auto;
 }
 
+.text-center {
+  text-align: center;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -641,13 +645,26 @@ section {
         max-width: 1280px;
         padding: 40px;
         background-color: #fff;
+        position: relative;
         img {
           width: 40px;
+          border-radius: 50%;
         }
         p {
           font-size: 20px;
           padding-block: 20px;
           color: var(--color-green-2);
+        }
+        h3 {
+          font-size: 20px;
+        }
+        .img {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 40%;
+          }
         }
       }
     }
@@ -929,6 +946,9 @@ section {
   width: 100%;
   max-width: 400px;
   font-size: 22px;
+  &.edit_user_wrapper {
+    max-width: 800px;
+  }
   [for="treatment_price"] {
     img {
       width: 20px;
@@ -940,6 +960,10 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  &.edit_user {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .form-group {
@@ -1401,6 +1425,35 @@ select[name="rating"] {
   min-width: 20px;
   border: 1px solid #ddd;
   border-radius: 3px;
+}
+.stars-count {
+  --stars-color: #e9ec10;
+  i {
+    color: #ddd;
+    &.active {
+      color: var(--stars-color);
+    }
+  }
+  &.__2 {
+    i:nth-child(-n + 2) {
+      color: var(--stars-color);
+    }
+  }
+  &.__3 {
+    i:nth-child(-n + 3) {
+      color: var(--stars-color);
+    }
+  }
+  &.__4 {
+    i:nth-child(-n + 4) {
+      color: var(--stars-color);
+    }
+  }
+  &.__5 {
+    i:nth-child(-n + 5) {
+      color: var(--stars-color);
+    }
+  }
 }
 
 .appointment-details h3 {

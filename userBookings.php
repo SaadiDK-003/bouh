@@ -126,7 +126,14 @@ if (!empty($appointments)) {
                             <div class="appointment-header">
                                 <div class="appointment-status status-<?php echo $appointment['status']; ?>">
                                     <?php if ($apt_status == 'pending'): ?>
-                                        قيد الانتظار <?php endif; ?>
+                                        قيد الانتظار
+                                    <?php elseif ($apt_status == 'confirmed'): ?>
+                                        مؤكد
+                                    <?php elseif ($apt_status == 'cancelled'): ?>
+                                        تم الإلغاء
+                                    <?php elseif ($apt_status == 'completed'): ?>
+                                        مكتمل
+                                    <?php endif; ?>
                                 </div>
                                 <div class="appointment-date">
                                     <?php echo date('M d, Y', strtotime($appointment['appointment_date'])); ?>
@@ -231,10 +238,17 @@ if (!empty($appointments)) {
                                             <label>التقييم (0-5):
                                                 <select name="rating" required>
                                                     <option value="" selected hidden>اختيار التقييم</option>
-                                                    <?php for ($i = 0; $i <= 5; $i++): ?>
+                                                    <?php for ($i = 1; $i <= 5; $i++): ?>
                                                         <option value="<?php echo $i; ?>" <?php echo ($existing && (int) $existing['rating'] === $i) ? 'selected' : ''; ?>><?php echo $i; ?></option>
                                                     <?php endfor; ?>
                                                 </select>
+                                                <span class="stars-count __<?= $existing['rating'] ?>">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </span>
                                             </label>
                                             <label class="d-block">تعليق:
                                                 <textarea name="comment" rows="2"

@@ -9,6 +9,9 @@ require_once 'includes/config.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bouh System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
     integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
@@ -35,10 +38,28 @@ require_once 'includes/config.php';
           <div class="flex-container">
             <!-- Smart assistant button -->
 
-            <a href="#!" class="btn">
-              <i class="fas fa-comment"></i>
-              حدث مع المساعد الذكي
-            </a>
+            <?php
+            $userID = get_user_id() ?? 0;
+            $sql__Q = $conn->query("CALL `get_appointment_id_by_user`($userID)");
+            if (mysqli_num_rows($sql__Q) > 0) {
+              $appointment_ID = mysqli_fetch_object($sql__Q);
+              ?>
+              <a href="./chat.php?appointment_id=<?= $appointment_ID->appointment_id ?? 0 ?>" class="btn">
+                <i class="fas fa-comment"></i>
+                حدث مع المساعد الذكي
+              </a>
+              <?php
+            } else {
+              ?>
+              <a href="#!" class="btn">
+                <i class="fas fa-comment"></i>
+                حدث مع المساعد الذكي
+              </a>
+              <?php
+            }
+            $sql__Q->close();
+            $conn->next_result();
+            ?>
 
             <!-- Book therapist button -->
             <a href="./booking.php" class="btn bg-white">
@@ -73,7 +94,25 @@ require_once 'includes/config.php';
           </div>
           <h2>جرب المساعد الذكي</h2>
           <p>يمكنك التحدث مع المساعد الذكي للحصول على تقييم أولي لحالتك النفسية وفهم أفضل لمشاعرك</p>
-          <a href="./userBookings.php" class="btn">ابدأ المحادثة الآن</a>
+          <?php
+          $userID = get_user_id() ?? 0;
+          $sql_Q = $conn->query("CALL `get_appointment_id_by_user`($userID)");
+          if (mysqli_num_rows($sql_Q) > 0) {
+            $appointmentID = mysqli_fetch_object($sql_Q);
+            ?>
+            <a href="./chat.php?appointment_id=<?= $appointmentID->appointment_id ?? 0 ?>" class="btn">ابدأ المحادثة
+              الآن</a>
+            <?php
+          } else {
+            ?>
+            <a href="#!" class="btn">ابدأ المحادثة الآن</a>
+            <?php
+          }
+          $sql_Q->close();
+          $conn->next_result();
+          ?>
+
+
         </div>
       </div>
       <div class="item">
@@ -182,7 +221,7 @@ require_once 'includes/config.php';
         <div class="content">
           <h3>مساعد ذكي</h3>
           <p>امحادثات مدعومة بالذكاء الاصطناعي لتقديم الدعم والاستماع على مدار الساعة
-            </p>
+          </p>
         </div>
       </div>
       <div class="item">
@@ -193,7 +232,7 @@ require_once 'includes/config.php';
           <h3>تشخيص أولي</h3>
           <p>
             تقييم مبدئي لحالتك النفسية باستخدام الذكاء الاصطناعي المتقدم لتوجيهك نحو المسار العلاجي المناسب
-            </p>
+          </p>
         </div>
       </div>
       <div class="item">
@@ -213,7 +252,7 @@ require_once 'includes/config.php';
         </div>
         <div class="content">
           <h3>خصوصية تامة</h3>
-          <p>حماية بيانات مشددة وضمان السرية التامة لجميع المحادثات والمعلومات 
+          <p>حماية بيانات مشددة وضمان السرية التامة لجميع المحادثات والمعلومات
           </p>
         </div>
       </div>
@@ -248,28 +287,33 @@ require_once 'includes/config.php';
     </div>
     <div class="mt-40 stories-container w-1280">
       <div class="owl-carousel success-stories-wrapper">
-        <div class="item">
-          <div class="d-grid grid-4-1">
-            <div class="text">
-              <img src="./svg/quote-red.svg" alt="quote-red">
-              <p>ساعدني تطبيق بوح في التغلب على قلق الامتحانات. المحادثات مع المساعد الذكي والجلسات مع المعالج غيرت
-                حياتي
-                للأفضل.</p>
+        <?php
+        $reviews_Q = $conn->query("CALL `get_reviews`()");
+        while ($row = mysqli_fetch_object($reviews_Q)):
+          ?>
+          <div class="item">
+            <div class="d-grid grid-4-1">
+              <div class="text">
+                <img src="./svg/quote-red.svg" alt="quote-red">
+                <p><?= $row->comment ?></p>
+                <h3><?= $row->name ?></h3>
+                <span class="stars-count __<?= $row->rating ?>">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </span>
+              </div>
+              <div class="img">
+                <img src="./uploads/<?= $row->photo ?? '68d2fb2b63e34.jpg' ?>" alt="user-image">
+              </div>
             </div>
-            <div class="img"></div>
           </div>
-        </div>
-        <div class="item">
-          <div class="d-grid grid-4-1">
-            <div class="text">
-              <img src="./svg/quote-red.svg" alt="quote-red">
-              <p>ساعدني تطبيق بوح في التغلب على قلق الامتحانات. المحادثات مع المساعد الذكي والجلسات مع المعالج غيرت
-                حياتي
-                للأفضل.</p>
-            </div>
-            <div class="img"></div>
-          </div>
-        </div>
+        <?php endwhile;
+        $reviews_Q->close();
+        $conn->next_result();
+        ?>
       </div>
       <div class="owl-nav-custom-btns">
         <button class="owl-prev-custom-btn"><img src="./svg/right-nav.svg" alt="right-arrow"></button>

@@ -83,11 +83,21 @@ $appointments = $result->fetch_all(MYSQLI_ASSOC);
                 </div>
 
                 <div class="appointments-grid">
-                    <?php foreach ($appointments as $appointment): ?>
+                    <?php foreach ($appointments as $appointment):
+                        $apt_status = $appointment['status'];
+                        ?>
                         <div class="appointment-card" data-status="<?php echo $appointment['status']; ?>">
                             <div class="appointment-header">
                                 <div class="appointment-status status-<?php echo $appointment['status']; ?>">
-                                    <?php echo ucfirst($appointment['status']); ?>
+                                    <?php if ($apt_status == 'pending'): ?>
+                                        قيد الانتظار
+                                    <?php elseif ($apt_status == 'confirmed'): ?>
+                                        مؤكد
+                                    <?php elseif ($apt_status == 'cancelled'): ?>
+                                        تم الإلغاء
+                                    <?php elseif ($apt_status == 'completed'): ?>
+                                        مكتمل
+                                    <?php endif; ?>
                                 </div>
                                 <div class="appointment-date">
                                     <?php echo date('M d, Y', strtotime($appointment['appointment_date'])); ?>
