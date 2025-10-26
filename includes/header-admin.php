@@ -36,7 +36,7 @@
                 if (isset($_SESSION['is_admin'])) {
                     ?>
                     <div class="nav-auth">
-                        <a href="?logout" class="btn btn-secondary">تسجيل خروج</a>
+                        <a href="./index.php?logout" class="btn btn-secondary">تسجيل خروج</a>
                     </div>
                 <?php } ?>
             </div>
